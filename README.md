@@ -1,47 +1,42 @@
-⸻
-
 🏠 AI Web Scraper (Selenium + LangChain + Streamlit)
 
-This project scrapes property listings from PropertyFinder.ae, processes the data with AI (via Ollama), and provides an interactive web UI built with Streamlit.
+Scrapes a property search page (e.g., PropertyFinder.ae), then uses LangChain + an Ollama model to structure the results into a table—viewable in a Streamlit UI.
 
-⸻
+Files — what does what
+	•	Dockerfile – Builds the Python runtime and installs project dependencies.
+	•	docker-compose.yml – Starts the Streamlit app (scraper service) and Ollama.
+	•	run.sh – One-command build + run helper.
+	•	main.py – Streamlit UI (inputs, button, results table).
+	•	scrape.py – Scraper logic (fetches/cleans HTML content).
+	•	parse.py – Parsing helpers for turning raw HTML into structured data.
 
-📂 Project Structure
-	•	Dockerfile → Defines the environment for the scraper (Python + dependencies).
-	•	docker-compose.yml → Orchestrates services:
-	•	scraper → Runs the Streamlit web app.
-	•	ollama → Provides the LLaMA model backend for AI queries.
-	•	main.py → Streamlit app (frontend UI for input + AI responses).
-	•	scrape.py → Handles Selenium scraping logic (fetches property data).
-	•	parse.py → Cleans and structures scraped HTML into a table format.
-	•	run.sh → Helper script to build and run everything in one command.
+UI Input Parameters
+	•	Page URL
+Example:
 
-⸻
+https://www.propertyfinder.ae/en/search?l=733&c=2&fu=0&rp=y&ob=mr
 
-▶️ How to Run
-	1.	Make script executable (first time only):
+
+	•	Ask the AI about this page (free-text prompt)
+Examples:
+
+Can you please collect all of the relevant property information and organize it in a table.
+
+or
+
+Can you please collect all of the relevant property information and organize it in a table. And Please give the complete data as much possible
+
+
+	•	Ollama model
+Example:
+
+llama3:latest
+
+
+
+How to run
 
 chmod +x run.sh
-
-
-	2.	Run the project:
-
 ./run.sh
 
-
-	3.	Open your browser at 👉 http://localhost:8501
-
-⸻
-
-🖥️ Web UI Inputs
-	•	Page URL → PropertyFinder search link.
-	•	Ask the AI → Question about the page (e.g., “Summarize the property prices”).
-	•	Ollama Model → Choose LLaMA variant (default: llama3:latest).
-
-⸻
-
-✅ Output
-	•	A structured table of property listings (price, location, bedrooms, bathrooms, etc).
-	•	AI-powered insights from the scraped page.
-
-⸻
+Then open: http://localhost:8501
